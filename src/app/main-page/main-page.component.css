@@ -10,7 +10,7 @@
 
 .container > * {
 
-    height: 80%;
+    min-height: 50%;
 
     border: 2px #ddd solid;
 

@@ -1,0 +1,20 @@
+p {
+    color: white;
+}
+
+.board {
+    height: 60vh;
+    width: 60vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-content: center;
+
+}
+
+.cell {
+    border: 1px solid white;
+
+    height: 20vh;
+    width: 20vh;
+}
