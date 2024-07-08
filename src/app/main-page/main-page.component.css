@@ -1,0 +1,17 @@
+.container {
+    background-color: black;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.container > * {
+
+    height: 80%;
+
+    border: 2px #ddd solid;
+
+}
