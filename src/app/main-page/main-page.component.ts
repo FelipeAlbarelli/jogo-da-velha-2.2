@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GameBoardComponent } from '../comps/game-board/game-board.component';
 import { PlayerPanelComponent } from '../comps/player-panel/player-panel.component';
 import { Turn } from '../gameLogic/player';
+import { GameService } from '../game.service';
 
 
 @Component({
@@ -13,12 +14,14 @@ import { Turn } from '../gameLogic/player';
 })
 export class MainPageComponent {
 
-  currentPlayerTurn : Turn = null;
+  game = this.gameService.game
 
-  startGame(playerToPlayFirst : Turn = null) {
-    if (playerToPlayFirst === null) {
+  constructor(protected gameService : GameService) {}
 
-    }
+  startGame() {
+    this.gameService.startGame()
+
+    console.log(this.game())
   }
 
 }

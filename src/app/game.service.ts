@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Game, Player, createNewGame, createPlayer } from './gameLogic/player';
 
 @Injectable({
@@ -6,7 +6,7 @@ import { Game, Player, createNewGame, createPlayer } from './gameLogic/player';
 })
 export class GameService {
 
-  game : Game | null = null;
+  game = signal<Game | null>(null)
 
   constructor() { }
 
@@ -16,6 +16,7 @@ export class GameService {
     const p2 = createPlayer('p2');
 
     const game = createNewGame(p1 , p2);
+    this.game.set(game);
   }
 
   makePlayerMovement( {} : {player : Player , cellIndex : number} ) {

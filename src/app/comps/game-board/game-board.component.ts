@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { GameBoard } from '../../gameLogic/player';
 
 @Component({
@@ -12,6 +12,6 @@ export class GameBoardComponent {
 
   board : GameBoard | null = null;
 
-  gameOn = false;
+  gameOn = input(false);
 
 }

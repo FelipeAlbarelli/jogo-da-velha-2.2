@@ -1,7 +1,11 @@
 <div class="container">
   <app-player-panel />
-  <app-game-board>
-    <button>Start</button>
+  <app-game-board
+    [gameOn]="game() !== null "
+  >
+    <button
+      (click)="startGame()"
+    >Start</button>
   </app-game-board>
   <app-player-panel />
 </div>
