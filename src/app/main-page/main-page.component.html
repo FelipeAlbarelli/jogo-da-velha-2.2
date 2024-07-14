@@ -1,6 +1,7 @@
 <div class="container">
   <app-player-panel
     [player]="p1()"
+    [color]="p1Color"
     [thisPlayerTurn]="currentTurnPlayerId() === p1()?.id"
   />
   <app-game-board
@@ -11,6 +12,7 @@
     >Start</button>
   </app-game-board>
   <app-player-panel 
+    [color]="p2Color"
     [player]="p2()"
     [thisPlayerTurn]="currentTurnPlayerId() === p2()?.id"
   />

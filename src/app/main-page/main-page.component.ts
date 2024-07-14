@@ -4,7 +4,6 @@ import { PlayerPanelComponent } from '../comps/player-panel/player-panel.compone
 import { Turn } from '../gameLogic/player';
 import { GameService } from '../game.service';
 
-
 @Component({
   selector: 'app-main-page',
   standalone: true,
@@ -22,6 +21,10 @@ export class MainPageComponent {
   p2 = computed( () => {
     return this.game()?.players[1] ?? null
   })
+
+  p1Color = 'blue'
+  p2Color = 'orange'
+  
 
   currentTurnPlayerId = computed(() => {
     return this.game()?.currentTurnPlayer.id ?? 'neither'

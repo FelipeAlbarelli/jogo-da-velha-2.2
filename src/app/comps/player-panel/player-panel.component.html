@@ -1,6 +1,7 @@
 <div 
     class="container"
-    [class.myTurn]="thisPlayerTurn()"    
+    [class.myTurn]="thisPlayerTurn()"
+    [style.outlineColor]="color()"
 >
     <p>{{ player()?.id ?? '---' }}</p>
 

@@ -14,4 +14,6 @@ export class PlayerPanelComponent {
 
   player = input<null | Player>(null)
 
+  color = input<string>('white');
+
 }

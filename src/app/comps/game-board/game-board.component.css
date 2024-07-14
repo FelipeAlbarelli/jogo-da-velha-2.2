@@ -17,6 +17,12 @@ p {
 
     height: 20vh;
     width: 20vh;
+
+}
+
+.gameOn .cell {
+
+    cursor: pointer;
 }
 
 .central--cell {
