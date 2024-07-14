@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { Player } from '../../gameLogic/player';
 
 @Component({
   selector: 'app-player-panel',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './player-panel.component.css'
 })
 export class PlayerPanelComponent {
+
+  thisPlayerTurn = input(false)
+
+  player = input<null | Player>(null)
 
 }

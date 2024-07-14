@@ -1,3 +1,8 @@
+.container {
+    width: 16vh;
+    padding: 4vh;
+}
+
 p {
     color: white;
 }
