@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { GameBoardComponent } from '../comps/game-board/game-board.component';
 import { PlayerPanelComponent } from '../comps/player-panel/player-panel.component';
 import { Turn } from '../gameLogic/player';
@@ -15,6 +15,17 @@ import { GameService } from '../game.service';
 export class MainPageComponent {
 
   game = this.gameService.game
+
+  p1 = computed( () => {
+    return this.game()?.players[0] ?? null
+  })
+  p2 = computed( () => {
+    return this.game()?.players[1] ?? null
+  })
+
+  currentTurnPlayerId = computed(() => {
+    return this.game()?.currentTurnPlayer.id ?? 'neither'
+  })
 
   constructor(protected gameService : GameService) {}
 
