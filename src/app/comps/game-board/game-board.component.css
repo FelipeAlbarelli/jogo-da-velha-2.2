@@ -18,3 +18,10 @@ p {
     height: 20vh;
     width: 20vh;
 }
+
+.central--cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

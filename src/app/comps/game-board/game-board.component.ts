@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GameBoard } from '../../gameLogic/player';
 
 @Component({
   selector: 'app-game-board',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './game-board.component.css'
 })
 export class GameBoardComponent {
+
+  board : GameBoard | null = null;
+
+  gameOn = false;
 
 }

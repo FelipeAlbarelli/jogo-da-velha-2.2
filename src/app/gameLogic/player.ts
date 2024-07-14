@@ -5,7 +5,7 @@ export type Player = {
     piecesInventory : number[]
 }
 
-export type GameBoardCell = null | {playerId : string , pieceStr : number}
+export type GameBoardCell = {playerId : string , pieceStr : number}[]
 
 export type GameBoard = [
     GameBoardCell, GameBoardCell, GameBoardCell,
@@ -34,9 +34,9 @@ export const createNewGame = (p1: Player , p2: Player) => {
     const game : Game = {
         players : [p1 , p2],
         board : [
-            null,null,null,
-            null,null,null,
-            null,null,null
+            [],[],[],
+            [],[],[],
+            [],[],[]
         ],
         currentTurnPlayer : p1
     }
@@ -52,12 +52,12 @@ export const getPlayerRemainedPieces = (player : Player) => {
             return {...prev , current : 1}
         } 
         return {...prev , current : currentCount + 1}
-    } , {} as Record<number , number> )
+    } , { 0 : 0 , 1 : 0 , 2 : 0} as Record<number , number> )
 
     return piecesTable;
 }
 
-export const makePlayerMovement = (game : Game , targetCell : number , pieceToUse : number) => {
+export const applyPlayerMovementOnBoard = (game : Game , targetCell : number , pieceToUseStr : number) => {
 
     if (targetCell < 0 || targetCell > 8) {
         return null;
@@ -66,22 +66,57 @@ export const makePlayerMovement = (game : Game , targetCell : number , pieceToUs
     const targetCellOnBoard = game.board[targetCell];
     const currentPlayer = game.currentTurnPlayer
 
-    // caso 1 : casa está vazia, basta colocar a peça lá então
-    if ( targetCellOnBoard === null ) {
-        const nextGameState = produce( game , draft => {
-            game.board[targetCell] = {
-                pieceStr : pieceToUse,
-                playerId : currentPlayer.id
-            }
-        })
+    // checar se player tem peça que quer jogar:
 
+    const currentPlayerPieces = getPlayerRemainedPieces(currentPlayer);
+
+    if ( (currentPlayerPieces[pieceToUseStr] ?? 0 )  < 1 ) {
+        return
+    }
+
+
+    // caso 1 : casa está vazia, basta colocar a peça lá então
+    if ( targetCellOnBoard.length === 0 ) {
+        const nextGameState = produce( game , draft => {
+            draft.board[targetCell] = [{
+                pieceStr : pieceToUseStr,
+                playerId : currentPlayer.id
+            }]
+        })
         return nextGameState;
     }
 
-    // caso 2 : casa já está
+    // caso 2 : casa não vazia, ver força atual
+
+    // todo: convencionar usar GameBoard como pilha, só vendo primeiro item
+    // talvez seja melhor (dado que sempre terá um tamanho pequeno) sempre pegar
+    // o máximo. Mas por enquanto é mais simples assim, dado que dá para retirar
+    // a ultima peça.
+
+    const targetCellLastPiece = targetCellOnBoard[0]
+
+    // jogada invalida : peça tem que ser propriamente maior
+    if (pieceToUseStr <= targetCellLastPiece.pieceStr ) {
+        return null
+    }
+
+    const nextGameState = produce( game , draft => {
+        draft.board[targetCell] = [
+            {
+                pieceStr : pieceToUseStr,
+                playerId : currentPlayer.id
+            } ,
+            ...targetCellOnBoard
+        ]
+    })
+    return nextGameState;
 
 
 
+
+}
+
+export const makePlayerMovement = ( game : Game , targetCell : number , pieceToUseStr : number ) => {
 
 }
 
