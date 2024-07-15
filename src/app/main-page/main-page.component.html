@@ -8,7 +8,8 @@
     [gameOn]="game() !== null "
     [board]="game()?.board ?? null"
     [currentPlayer]="currentTurnPlayer()"
-    [selectedPieceStr]="currentPlayerSelectedPiece()"
+    [selectedPieceStr]="currentPlayerSelectedPiece()[0]"
+    (onCellClick)="putPieceOnCell($event)"
   >
     <button
       (click)="startGame()"

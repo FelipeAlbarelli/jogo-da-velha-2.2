@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Game, Player, createNewGame, createPlayer } from './gameLogic/player';
+import { Game, Player, applyPlayerMovementOnBoard, createNewGame, createPlayer, makePlayerMovement } from './gameLogic/player';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,16 @@ export class GameService {
     this.game.set(game);
   }
 
-  makePlayerMovement( {} : {player : Player , cellIndex : number} ) {
-
+  makePlayerMovement( {cellIndex , pieceStr} : {cellIndex : number , pieceStr : number} ) {
+    const currentGameState = this.game()
+    if ( currentGameState == null) {
+      return
+    }
+    const nextGameState = makePlayerMovement( currentGameState , cellIndex , pieceStr);
+    if (nextGameState !== null) {
+      this.game.set(nextGameState)
+    }
+    console.log({nextGameState})
   }
 
 }

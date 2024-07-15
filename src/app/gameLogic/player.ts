@@ -17,7 +17,7 @@ export type GameBoard = [
 export type Game = {
     players : [Player , Player ];
     board : GameBoard,
-    currentTurnPlayer : Player
+    currentTurnPlayerIndex : number
 }
 
 export const createPlayer = (id : string , color : string) => {
@@ -40,7 +40,7 @@ export const createNewGame = (p1: Player , p2: Player) => {
             [],[],[],
             [],[],[]
         ],
-        currentTurnPlayer : p1
+        currentTurnPlayerIndex : 0
     }
 
     return game
@@ -59,29 +59,27 @@ export const getPlayerRemainedPieces = (player : Player) => {
     return piecesTable;
 }
 
-export const applyPlayerMovementOnBoard = (game : Game , targetCell : number , pieceToUseStr : number) => {
+// checa se é uma jogada valida e aplica mudanças no board
+export const applyPlayerMovementOnBoard = (game : Game , targetCell : number , pieceIndex : number) => {
+
+    const currentPlayer = game.players[game.currentTurnPlayerIndex]
 
     if (targetCell < 0 || targetCell > 8) {
         return null;
     }
 
     const targetCellOnBoard = game.board[targetCell];
-    const currentPlayer = game.currentTurnPlayer
-
+    const pieceStr = currentPlayer.piecesInventory.at(pieceIndex)
     // checar se player tem peça que quer jogar:
 
-    const currentPlayerPieces = getPlayerRemainedPieces(currentPlayer);
-
-    if ( (currentPlayerPieces[pieceToUseStr] ?? 0 )  < 1 ) {
-        return
+    if ( pieceStr === undefined )  {
+        return null
     }
-
-
     // caso 1 : casa está vazia, basta colocar a peça lá então
     if ( targetCellOnBoard.length === 0 ) {
         const nextGameState = produce( game , draft => {
             draft.board[targetCell] = [{
-                pieceStr : pieceToUseStr,
+                pieceStr,
                 playerId : currentPlayer.id
             }]
         })
@@ -98,27 +96,41 @@ export const applyPlayerMovementOnBoard = (game : Game , targetCell : number , p
     const targetCellLastPiece = targetCellOnBoard[0]
 
     // jogada invalida : peça tem que ser propriamente maior
-    if (pieceToUseStr <= targetCellLastPiece.pieceStr ) {
+    if (pieceStr <= targetCellLastPiece.pieceStr ) {
         return null
     }
 
     const nextGameState = produce( game , draft => {
         draft.board[targetCell] = [
             {
-                pieceStr : pieceToUseStr,
+                pieceStr : pieceIndex,
                 playerId : currentPlayer.id
             } ,
             ...targetCellOnBoard
         ]
     })
     return nextGameState;
-
-
-
-
 }
 
-export const makePlayerMovement = ( game : Game , targetCell : number , pieceToUseStr : number ) => {
+// tenta fazer jogada, se conseguir, muda o jogador atuante (muda turno) e retira peça usada do inventario
+export const makePlayerMovement = ( game : Game , targetCell : number , pieceIndex : number ) => {
+    const nextGameState = applyPlayerMovementOnBoard(game , targetCell , pieceIndex);
+    if (nextGameState == null) {
+        return null
+    }
+
+    const finalGameState = produce( nextGameState , gameDraft => {
+        gameDraft.players[gameDraft.currentTurnPlayerIndex].piecesInventory = gameDraft
+            .players[gameDraft.currentTurnPlayerIndex]
+            .piecesInventory
+            .filter( (value , index)  => index != pieceIndex);
+        
+        gameDraft.currentTurnPlayerIndex = (gameDraft.currentTurnPlayerIndex + 1) % 2 
+    })
+
+    console.log({pieceIndex})
+
+    return finalGameState
 
 }
 

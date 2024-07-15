@@ -18,7 +18,7 @@ export class GameBoardComponent {
 
   selectedPieceStr = input<number | null>()
 
-  onCellClick = output<GameBoard>()
+  onCellClick = output<number>()
 
   mouseHoverCellIndex = signal(-1);
 
@@ -27,7 +27,8 @@ export class GameBoardComponent {
   })
 
   cellClick(item: GameBoardCell , index : number) {
-    console.log({item , index})
+    this.onCellClick.emit(index)
+
   }
 
 }

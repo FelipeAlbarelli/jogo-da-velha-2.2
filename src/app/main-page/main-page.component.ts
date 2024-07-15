@@ -35,17 +35,21 @@ export class MainPageComponent {
 
 
   currentTurnPlayer = computed(() => {
-    return this.game()?.currentTurnPlayer ?? null
+    const game = this.game()
+    if (game == null) {
+      return null
+    }
+    return game.players[game.currentTurnPlayerIndex]
   })
 
   currentPlayerSelectedPiece = computed( () => {
     if ( this.currentTurnPlayer() == null) {
-      return null
+      return [null , null]
     } 
     if (this.currentTurnPlayer()?.id === this.p1()?.id) {
-      return this.p1SelectedPieceStr()
+      return [this.p1SelectedPieceStr() , this.p1SelectedPieceIndex()]
     } else {
-      return this.p2SelectedPieceStr()
+      return [this.p2SelectedPieceStr() , this.p2SelectedPieceIndex()]
     }
   })
 
@@ -58,8 +62,14 @@ export class MainPageComponent {
 
   startGame() {
     this.gameService.startGame()
+  }
 
-    console.log(this.game())
+  putPieceOnCell(index : number) {
+    console.log(index)
+    this.gameService.makePlayerMovement({
+      cellIndex : index,
+      pieceStr : this.currentPlayerSelectedPiece()[1] ?? 0
+    })
   }
 
 }
