@@ -128,9 +128,45 @@ export const makePlayerMovement = ( game : Game , targetCell : number , pieceInd
         gameDraft.currentTurnPlayerIndex = (gameDraft.currentTurnPlayerIndex + 1) % 2 
     })
 
-    console.log({pieceIndex})
-
     return finalGameState
+
+}
+
+export const checkIfGameHasWinner = (game: Game) => {
+    const indexToCheck = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+
+        [0,4,8],
+        [2,4,6],
+    ];
+
+    const boardProjections = indexToCheck.map( 
+        ( indexGroup ) => indexGroup
+            .map( (i , index) =>  game.board[i].at(0)  )
+            .filter( i => i !== undefined ) 
+        )
+    
+    for (let index = 0; index < boardProjections.length; index++) {
+        const projection = boardProjections[index];
+        if (projection.length != 3) {
+            continue;
+        }
+        // console.log(projection)
+        if (projection.every( cell => cell?.playerId === game.players[0].id || cell?.playerId === game.players[1].id )) {
+            return {
+                cellsIndexes : indexToCheck[index],
+                winnerId: projection[0]?.playerId
+            }
+        }
+    }
+
+    return null;
 
 }
 
