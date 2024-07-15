@@ -2,8 +2,20 @@
     class="container"
     [class.myTurn]="thisPlayerTurn()"
     [style.outlineColor]="color()"
+    (click)="log()"
 >
     <p>{{ player()?.id ?? '---' }}</p>
 
+    <div class="pieces-container">
+        @for (piece of this.player()?.piecesInventory ?? []; track $index) {
+            <div
+                [class.selected]="selectedPieceIndex === $index"
+                (click)="selectedPieceIndex = $index"
+                [style.borderColor]="color()" 
+                class="piece piece--{{piece}}"> 
+                    {{piece + 1}}
+                </div>
+        }
+    </div>
 </div>
 

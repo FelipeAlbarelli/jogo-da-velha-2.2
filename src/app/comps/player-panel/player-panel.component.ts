@@ -16,4 +16,10 @@ export class PlayerPanelComponent {
 
   color = input<string>('white');
 
+  selectedPieceIndex : number | null = null;
+
+  log() {
+    console.log(this.player())
+  }
+
 }

@@ -11,3 +11,45 @@ p {
 .myTurn {
     outline: blueviolet 2px solid;
 }
+
+.pieces-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.piece {
+    border: 1px solid white;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.selected {
+    background-color: white;
+    color: black;
+}
+
+.piece:hover {
+    border-width: 4px;
+}
+
+.piece--0 {
+    width: 30px;
+    height: 30px;
+}
+
+.piece--1 {
+    width: 40px;
+    height: 40px;
+}
+
+.piece--2 {
+    width: 50px;
+    height: 50px;
+}
