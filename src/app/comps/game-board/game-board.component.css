@@ -15,10 +15,12 @@ p {
     color: white;
     height: 20vh;
     width: 20vh;
-    display: flex;
+    display: grid;
     align-items: center;
-    justify-content: center;
+    justify-items: center;
 
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
 }
 
 .gameOn {
@@ -48,7 +50,12 @@ p {
 }
 
 .hover-preview {
-    opacity: 70%;
+    opacity: 50%;
+}
+
+.piece {
+    grid-column-start: 1;
+    grid-row-start: 1;
 }
 
 .piece--0 {

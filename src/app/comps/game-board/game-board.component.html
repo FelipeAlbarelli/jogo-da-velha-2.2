@@ -16,13 +16,13 @@
             >
             @if ( mouseHoverCellIndex() == $index ) {
                 <div 
-                    class="piece--{{selectedPieceStr()}} hover-preview "
+                    class="piece--{{selectedPieceStr()}} piece hover-preview "
                     [style.backgroundColor]=" currentPlayer()?.color "
                 > {{selectedPieceStr()}} </div>
             }
             @if (item.length > 0) {
                 <div 
-                    class="piece--{{item[0].pieceStr }}"
+                    class="piece--{{item[0].pieceStr }} piece"
                     [style.backgroundColor]=" playersColorsById()[item[0].playerId] "
                 > {{selectedPieceStr()}} </div>
             }
