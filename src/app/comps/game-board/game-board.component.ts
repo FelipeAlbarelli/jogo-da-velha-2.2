@@ -12,6 +12,8 @@ export class GameBoardComponent {
 
   board = input< null | GameBoard>(null);
 
+  playersColorsById = input<Record<string , string> >({})
+
   gameOn = input(false);
 
   currentPlayer = input<Player | null>( null )

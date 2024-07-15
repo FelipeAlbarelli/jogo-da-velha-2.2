@@ -20,6 +20,12 @@
                     [style.backgroundColor]=" currentPlayer()?.color "
                 > {{selectedPieceStr()}} </div>
             }
+            @if (item.length > 0) {
+                <div 
+                    class="piece--{{item[0].pieceStr }}"
+                    [style.backgroundColor]=" playersColorsById()[item[0].playerId] "
+                > {{selectedPieceStr()}} </div>
+            }
             </div>
         }
     }

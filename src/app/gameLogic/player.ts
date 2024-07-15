@@ -103,7 +103,7 @@ export const applyPlayerMovementOnBoard = (game : Game , targetCell : number , p
     const nextGameState = produce( game , draft => {
         draft.board[targetCell] = [
             {
-                pieceStr : pieceIndex,
+                pieceStr ,
                 playerId : currentPlayer.id
             } ,
             ...targetCellOnBoard

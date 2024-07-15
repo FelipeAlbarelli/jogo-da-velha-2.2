@@ -32,7 +32,12 @@ export class MainPageComponent {
     return (this.p2()?.piecesInventory ?? [])[this.p2SelectedPieceIndex()]
   })
 
-
+  colorsById = computed( () => {
+    return {
+      [this.p1()?.id ?? '!'] : this.p1()?.color ?? 'white',
+      [this.p2()?.id ?? '!'] : this.p2()?.color ?? 'white' ,
+    }
+  })
 
   currentTurnPlayer = computed(() => {
     const game = this.game()

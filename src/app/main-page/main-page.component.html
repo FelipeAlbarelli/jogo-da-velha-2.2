@@ -10,6 +10,7 @@
     [currentPlayer]="currentTurnPlayer()"
     [selectedPieceStr]="currentPlayerSelectedPiece()[0]"
     (onCellClick)="putPieceOnCell($event)"
+    [playersColorsById]="colorsById()"
   >
     <button
       (click)="startGame()"
