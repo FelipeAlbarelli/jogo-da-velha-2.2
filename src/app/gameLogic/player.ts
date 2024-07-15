@@ -2,7 +2,8 @@ import {produce} from "immer"
 
 export type Player = {
     id : string;
-    piecesInventory : number[]
+    piecesInventory : number[];
+    color : string;
 }
 
 export type GameBoardCell = {playerId : string , pieceStr : number}[]
@@ -19,9 +20,10 @@ export type Game = {
     currentTurnPlayer : Player
 }
 
-export const createPlayer = (id : string) => {
+export const createPlayer = (id : string , color : string) => {
     return {
         id,
+        color,
         piecesInventory : [
             0,0,0 , 
             1,1,1 ,

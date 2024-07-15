@@ -12,8 +12,8 @@ export class GameService {
 
 
   startGame() {
-    const p1 = createPlayer('p1');
-    const p2 = createPlayer('p2');
+    const p1 = createPlayer('p1' , 'blue');
+    const p2 = createPlayer('p2' , 'orange');
 
     const game = createNewGame(p1 , p2);
     this.game.set(game);

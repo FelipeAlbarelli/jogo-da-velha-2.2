@@ -1,7 +1,6 @@
 <div class="container">
   <app-player-panel
     [player]="p1()"
-    [color]="p1Color"
     [thisPlayerTurn]="currentTurnPlayer()?.id === p1()?.id && p1() !== null"
     [(selectedPieceIndex)]="p1SelectedPieceIndex"
   />
@@ -16,7 +15,6 @@
     >Start</button>
   </app-game-board>
   <app-player-panel 
-    [color]="p2Color"
     [player]="p2()"
     [(selectedPieceIndex)]="p2SelectedPieceIndex"
     [thisPlayerTurn]="currentTurnPlayer()?.id === p2()?.id  && p2() !== null"

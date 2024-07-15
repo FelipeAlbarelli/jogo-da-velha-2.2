@@ -1,7 +1,7 @@
 <div 
     class="container"
     [class.myTurn]="thisPlayerTurn()"
-    [style.outlineColor]="color()"
+    [style.outlineColor]="player()?.color ?? 'white' "
     (click)="log()"
 >
     <p>{{ player()?.id ?? '---' }}</p>
@@ -11,7 +11,7 @@
             <div
                 [class.selected]="selectedPieceIndex() === $index"
                 (click)="selectedPieceIndex.set($index)"
-                [style.borderColor]="color()" 
+                [style.borderColor]=" player()?.color ?? 'white' " 
                 class="piece piece--{{piece}}"> 
                     {{piece + 1}}
                 </div>

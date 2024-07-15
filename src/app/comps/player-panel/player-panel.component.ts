@@ -14,8 +14,6 @@ export class PlayerPanelComponent {
 
   player = input<null | Player>(null)
 
-  color = input<string>('white');
-
   selectedPieceIndex = model(0)
 
   log() {

@@ -22,9 +22,6 @@ export class MainPageComponent {
     return this.game()?.players[1] ?? null
   })
 
-  p1Color = 'blue'
-  p2Color = 'orange'
-  
   p1SelectedPieceIndex = signal(0)
   p2SelectedPieceIndex = signal(0)
 
