@@ -9,8 +9,8 @@
     <div class="pieces-container">
         @for (piece of this.player()?.piecesInventory ?? []; track $index) {
             <div
-                [class.selected]="selectedPieceIndex === $index"
-                (click)="selectedPieceIndex = $index"
+                [class.selected]="selectedPieceIndex() === $index"
+                (click)="selectedPieceIndex.set($index)"
                 [style.borderColor]="color()" 
                 class="piece piece--{{piece}}"> 
                     {{piece + 1}}

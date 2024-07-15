@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, model, output } from '@angular/core';
 import { Player } from '../../gameLogic/player';
 
 @Component({
@@ -16,7 +16,7 @@ export class PlayerPanelComponent {
 
   color = input<string>('white');
 
-  selectedPieceIndex : number | null = null;
+  selectedPieceIndex = model(0)
 
   log() {
     console.log(this.player())
