@@ -15,7 +15,10 @@
                 (click)="cellClick(item , $index)"
             >
             @if ( mouseHoverCellIndex() == $index ) {
-                <div class="piece"> {{selectedPieceStr()}} </div>
+                <div 
+                    class="piece--{{selectedPieceStr()}} hover-preview "
+                    [style.backgroundColor]=" currentPlayer()?.color "
+                > {{selectedPieceStr()}} </div>
             }
             </div>
         }
