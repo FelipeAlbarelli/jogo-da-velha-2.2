@@ -6,6 +6,7 @@
   />
   <app-game-board
     [gameOn]="game() !== null "
+    [board]="game()?.board ?? null"
   >
     <button
       (click)="startGame()"

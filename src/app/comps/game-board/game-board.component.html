@@ -3,18 +3,14 @@
     class="board"
 >
 
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell central--cell">
-        @if ( ! gameOn() ) {
-            <ng-content ></ng-content>
+    @if ( ! gameOn() ) {
+        <ng-content ></ng-content>
+    } @else { 
+        @for (item of ( board() ?? []); track $index) {
+            <div 
+                class="cell"
+                (click)="cellClick(item , $index)"
+            ></div>
         }
-    </div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-
+    }
 </div>

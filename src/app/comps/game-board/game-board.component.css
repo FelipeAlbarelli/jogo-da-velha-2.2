@@ -5,11 +5,9 @@ p {
 .board {
     height: 60vh;
     width: 60vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    align-content: center;
-
 }
 
 .cell {
@@ -20,9 +18,19 @@ p {
 
 }
 
+.gameOn {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-content: center;
+
+}
+
 .gameOn .cell {
 
     cursor: pointer;
+
+    
 }
 
 .central--cell {

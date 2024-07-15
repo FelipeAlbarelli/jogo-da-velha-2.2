@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
-import { GameBoard } from '../../gameLogic/player';
+import { Component, input, output } from '@angular/core';
+import { GameBoard, GameBoardCell } from '../../gameLogic/player';
 
 @Component({
   selector: 'app-game-board',
@@ -10,8 +10,14 @@ import { GameBoard } from '../../gameLogic/player';
 })
 export class GameBoardComponent {
 
-  board : GameBoard | null = null;
+  board = input< null | GameBoard>(null);
 
   gameOn = input(false);
+
+  onCellClick = output<GameBoard>()
+
+  cellClick(item: GameBoardCell , index : number) {
+    console.log({item , index})
+  }
 
 }
