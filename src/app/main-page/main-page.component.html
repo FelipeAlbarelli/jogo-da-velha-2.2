@@ -2,11 +2,14 @@
   <app-player-panel
     [player]="p1()"
     [color]="p1Color"
-    [thisPlayerTurn]="currentTurnPlayerId() === p1()?.id"
+    [thisPlayerTurn]="currentTurnPlayer()?.id === p1()?.id && p1() !== null"
+    [(selectedPieceIndex)]="p1SelectedPieceIndex"
   />
   <app-game-board
     [gameOn]="game() !== null "
     [board]="game()?.board ?? null"
+    [currentPlayer]="currentTurnPlayer()"
+    [selectedPieceStr]="currentPlayerSelectedPiece()"
   >
     <button
       (click)="startGame()"
@@ -15,6 +18,7 @@
   <app-player-panel 
     [color]="p2Color"
     [player]="p2()"
-    [thisPlayerTurn]="currentTurnPlayerId() === p2()?.id"
+    [(selectedPieceIndex)]="p2SelectedPieceIndex"
+    [thisPlayerTurn]="currentTurnPlayer()?.id === p2()?.id  && p2() !== null"
   />
 </div>

@@ -1,6 +1,7 @@
 <div 
     [class.gameOn]="gameOn()"
     class="board"
+    (mouseleave)="mouseHoverCellIndex.set(-1)"
 >
 
     @if ( ! gameOn() ) {
@@ -9,8 +10,14 @@
         @for (item of ( board() ?? []); track $index) {
             <div 
                 class="cell"
+                [class.is-on-hover]="mouseHoverCellIndex() == $index"
+                (mouseenter)="mouseHoverCellIndex.set($index)"
                 (click)="cellClick(item , $index)"
-            ></div>
+            >
+            @if ( mouseHoverCellIndex() == $index ) {
+                <div class="piece"> {{selectedPieceStr()}} </div>
+            }
+            </div>
         }
     }
 </div>

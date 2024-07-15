@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { GameBoardComponent } from '../comps/game-board/game-board.component';
 import { PlayerPanelComponent } from '../comps/player-panel/player-panel.component';
 import { Turn } from '../gameLogic/player';
@@ -25,9 +25,36 @@ export class MainPageComponent {
   p1Color = 'blue'
   p2Color = 'orange'
   
+  p1SelectedPieceIndex = signal(0)
+  p2SelectedPieceIndex = signal(0)
 
-  currentTurnPlayerId = computed(() => {
-    return this.game()?.currentTurnPlayer.id ?? 'neither'
+  p1SelectedPieceStr = computed( () => {
+    return (this.p1()?.piecesInventory ?? [])[this.p1SelectedPieceIndex()]
+  })
+  p2SelectedPieceStr = computed( () => {
+    return (this.p2()?.piecesInventory ?? [])[this.p2SelectedPieceIndex()]
+  })
+
+
+
+  currentTurnPlayer = computed(() => {
+    return this.game()?.currentTurnPlayer ?? null
+  })
+
+  currentPlayerSelectedPiece = computed( () => {
+    if ( this.currentTurnPlayer() == null) {
+      return null
+    } 
+    if (this.currentTurnPlayer()?.id === this.p1()?.id) {
+      return this.p1SelectedPieceStr()
+    } else {
+      return this.p2SelectedPieceStr()
+    }
+  })
+
+  effect1 = effect( () => {
+    console.log(this.currentPlayerSelectedPiece())
+
   })
 
   constructor(protected gameService : GameService) {}

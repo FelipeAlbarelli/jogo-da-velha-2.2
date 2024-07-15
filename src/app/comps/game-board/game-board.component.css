@@ -12,9 +12,12 @@ p {
 
 .cell {
     border: 1px solid white;
-
+    color: white;
     height: 20vh;
     width: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
 
@@ -38,4 +41,8 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.is-on-hover {
+    /* background-color: white; */
 }
