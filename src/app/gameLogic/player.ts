@@ -158,7 +158,7 @@ export const checkIfGameHasWinner = (game: Game) => {
             continue;
         }
         // console.log(projection)
-        if (projection.every( cell => cell?.playerId === game.players[0].id || cell?.playerId === game.players[1].id )) {
+        if (projection.every( cell => cell?.playerId === game.players[0].id ) || projection.every( cell => cell?.playerId === game.players[1].id ) ) {
             return {
                 cellsIndexes : indexToCheck[index],
                 winnerId: projection[0]?.playerId
