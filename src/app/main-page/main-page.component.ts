@@ -3,15 +3,23 @@ import { GameBoardComponent } from '../comps/game-board/game-board.component';
 import { PlayerPanelComponent } from '../comps/player-panel/player-panel.component';
 import { Turn } from '../gameLogic/player';
 import { GameService } from '../game.service';
+import Peer, { DataConnection } from 'peerjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [GameBoardComponent , PlayerPanelComponent],
+  imports: [GameBoardComponent , PlayerPanelComponent , FormsModule],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css',
 })
 export class MainPageComponent {
+
+  peer : Peer  = new Peer();
+  peerConnection : DataConnection | null = null;
+
+  peerCodeToConnect : string = '';
+  peerCode : string = '';
 
   game = this.gameService.game
 
@@ -63,14 +71,49 @@ export class MainPageComponent {
 
   })
 
-  constructor(protected gameService : GameService) {}
+  constructor(protected gameService : GameService) {
+    // const peer = new SimplePeer({initiator : true});
+  }
 
   startGame() {
-    this.gameService.startGame()
+
+    this.peer.on('open', (id) => {
+      console.log('My peer ID is:');
+      console.log(id);
+      this.peerCode = id;
+      // this.peerCodeToConnect
+    });
+    this.gameService.startGame();
+
+    this.peer.on('connection' , (connection) => {
+      this.peerConnection = connection;
+      console.log('connected');
+      this.peerConfigs();
+    })
+
+  }
+
+  joinGame() {
+
+    this.peerConnection = this.peer.connect(this.peerCodeToConnect);
+
+    console.log(this.peerConnection)
+
+    this.gameService.startGame();
+    this.peerConfigs()
+  }
+
+  peerConfigs() {
+    this.peerConnection?.on('data' , (data) => {
+      console.log(data)
+    })
   }
 
   putPieceOnCell(index : number) {
-    console.log(index)
+    this.peerConnection?.send({
+      cellIndex : index,
+      pieceStr : this.currentPlayerSelectedPiece()[1] ?? 0
+    })
     this.gameService.makePlayerMovement({
       cellIndex : index,
       pieceStr : this.currentPlayerSelectedPiece()[1] ?? 0

@@ -14,7 +14,14 @@
   >
     <button
       (click)="startGame()"
-    >Start</button>
+    >Host Game</button>
+
+    <div class="join-form">
+        <button
+          (click)="joinGame()"
+        >Join</button> 
+        <input [(ngModel)]="peerCodeToConnect" type="text" name="join-code" id="join-code">
+    </div>
   </app-game-board>
   <app-player-panel 
     [player]="p2()"
